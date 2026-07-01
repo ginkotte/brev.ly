@@ -29,7 +29,6 @@ export const createShortUrlRoute: FastifyPluginAsyncZod = async (server) => {
 			});
 
 			if (isRight(result)) {
-				console.log("URL " + result.right.url);
 				return reply.status(201).send({
 					url: result.right.url,
 				});

@@ -23,8 +23,6 @@ export async function deleteUrl(
 		.where(and(eq(schema.urls.id, id), isNull(schema.urls.deletedAt)))
 		.limit(1);
 
-	console.log(data);
-
 	if (data.length < 1) {
 		return makeLeft({ message: "URL não encontrada" });
 	}
