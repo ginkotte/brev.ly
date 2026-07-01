@@ -8,6 +8,7 @@ import {
 import { env } from "../../env.ts";
 import { createShortUrlRoute } from "./routes/create-short-url.ts";
 import { deleteUrlRoute } from "./routes/delete-url.ts";
+import { redirectToOriginalUrlRoute } from "./routes/redirect-to-original-url.ts";
 
 const server = fastify();
 
@@ -30,6 +31,7 @@ server.register(fastifyCors, { origin: "*" });
 // Routes
 server.register(createShortUrlRoute);
 server.register(deleteUrlRoute);
+server.register(redirectToOriginalUrlRoute);
 
 server.listen({ port: env.PORT, host: "0.0.0.0" }).then(() => {
 	console.log("HTTP server running!");
