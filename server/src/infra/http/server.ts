@@ -8,6 +8,7 @@ import {
 import { env } from "../../env.ts";
 import { createShortUrlRoute } from "./routes/create-short-url.ts";
 import { deleteUrlRoute } from "./routes/delete-url.ts";
+import { exportUrlsRoute } from "./routes/export-urls.ts";
 import { getUrlsRoute } from "./routes/get-urls.ts";
 import { redirectToOriginalUrlRoute } from "./routes/redirect-to-original-url.ts";
 
@@ -34,6 +35,7 @@ server.register(createShortUrlRoute);
 server.register(deleteUrlRoute);
 server.register(redirectToOriginalUrlRoute);
 server.register(getUrlsRoute);
+server.register(exportUrlsRoute);
 
 server.listen({ port: env.PORT, host: "0.0.0.0" }).then(() => {
 	console.log("HTTP server running!");
