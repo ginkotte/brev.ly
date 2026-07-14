@@ -3,12 +3,13 @@ import { pipeline } from "node:stream/promises";
 import { stringify } from "csv-stringify";
 import { ilike } from "drizzle-orm";
 import z from "zod";
+import { env } from "../../env.ts";
 import { db, pg } from "../../infra/db/index.ts";
 import { schema } from "../../infra/db/schemas/index.ts";
 import { uploadFileToStorage } from "../../infra/storage/uploat-file-to-storage.ts";
 import { type Either, makeRight } from "../../shared/either.ts";
 
-const BASE_URL = "http://localhost:3333";
+const BASE_URL = `http://localhost:${env.PORT}`;
 
 const exportUrlsInput = z.object({
 	searchQuery: z.string().optional(),
