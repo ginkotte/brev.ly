@@ -1,3 +1,5 @@
+import { Button } from "./ui/button";
+
 export function NewLinkForm() {
   return(
     <div className="flex flex-col gap-3">
@@ -39,6 +41,11 @@ export function NewLinkForm() {
               placeholder="meu-link"
             />
           </div>
+        </div>
+        <div className="flex flex-col gap-3 mt-6">
+          <Button type="submit">
+            Salvar link
+          </Button>
         </div>
     </div>
   )

@@ -15,5 +15,7 @@
     inset 0px 0px 0px 1px rgba(255, 255, 255, 0.02);
 
   --animation-border: border 2s linear infinite;
+
+  --color-blue-base: #2C46B1;
 }
 
