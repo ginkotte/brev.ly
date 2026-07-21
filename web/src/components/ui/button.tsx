@@ -9,13 +9,13 @@ const buttonVariants = tv({
   variants: {
     variant: {
       primary: "bg-blue-base text-white hover:bg-blue-base/80",
-      secondary: "bg-gray-200 text-gray-600 hover:bg-gray-300",
+      secondary: "bg-gray-200 text-gray-500 hover:text-gray-500/50 hover:bg-gray-200/50",
       danger: "bg-danger text-white hover:opacity-90",
     },
 
     size: {
-      default: "h-12 w-full px-4",
-      icon: "h-10 w-10",
+      default: "h-12 px-4",
+      icon: "h-10 w-full",
       "icon-sm": "h-8 w-8",
     },
   },
@@ -30,10 +30,10 @@ type ButtonProps = ComponentProps<'button'> & VariantProps<typeof buttonVariants
     asChild?: boolean
 }
 
-export function Button({size, className, asChild, ...props}: ButtonProps) {
+export function Button({variant, size, className, asChild, ...props}: ButtonProps) {
     const Component = asChild ? Slot : 'button'
 
     return(
-        <Component className={buttonVariants({size, className})} {...props}/>
+        <Component className={buttonVariants({variant, size, className})} {...props}/>
     )
 }

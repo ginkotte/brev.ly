@@ -1,4 +1,5 @@
 import logo from "./assets/logo.svg";
+import { LinksList } from "./components/links-list";
 import { NewLink } from "./components/new-link";
 
 export function App() {
@@ -13,9 +14,7 @@ export function App() {
 
         <div className="flex gap-6">
           <NewLink />
-
-          {/* Futuramente */}
-          {/* <LinksList /> */}
+          <LinksList />
         </div>
       </div>
     </main>
