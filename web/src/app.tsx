@@ -12,7 +12,7 @@ export function App() {
           className="mb-8 h-8"
         />
 
-        <div className="flex gap-6">
+        <div className="flex flex-col gap-6 lg:flex-row lg:items-start">
           <NewLink />
           <LinksList />
         </div>

@@ -17,5 +17,8 @@
   --animation-border: border 2s linear infinite;
 
   --color-blue-base: #2C46B1;
+
+  --text-md: 0.875rem;
+  --text-md--line-height: 1.125rem;
 }
 
