@@ -20,6 +20,9 @@ importers:
       axios:
         specifier: ^1.19.0
         version: 1.19.0
+      immer:
+        specifier: ^11.1.16
+        version: 11.1.16
       react:
         specifier: ^19.2.7
         version: 19.2.7
@@ -35,6 +38,9 @@ importers:
       tailwindcss:
         specifier: ^4.3.2
         version: 4.3.2
+      zustand:
+        specifier: ^5.0.14
+        version: 5.0.14(@types/react@19.2.17)(immer@11.1.16)(react@19.2.7)
     devDependencies:
       '@eslint/js':
         specifier: ^10.0.1
@@ -828,6 +834,9 @@ packages:
     resolution: {integrity: sha512-BAg6QkE8W+TuQLrrw0Ugr7HegXduRuuj8/ti2kSOc+jz1dmx8/WNcjr6XGnq5YpDWxFwwaavqD0+jIUOKelTsw==}
     engines: {node: '>= 4'}
 
+  immer@11.1.16:
+    resolution: {integrity: sha512-Xs7H9rBc+kti1J6RueUvbEBkmOz7jqj11XYgf+YMXAYzu8EeE7hwZ9poLXdVfVnGmJu7QAf41T7H2KuF6QoK6Q==}
+
   imurmurhash@0.1.4:
     resolution: {integrity: sha512-JmXMZ6wuvDmLiHEml9ykzqO6lwFbof0GG4IkcGaENdCRDDmMVnny7s5HsIgHCbaq0w2MyPhDqkhTUgS2LU2PHA==}
     engines: {node: '>=0.8.19'}
@@ -1200,6 +1209,24 @@ packages:
 
   zod@4.4.3:
     resolution: {integrity: sha512-ytENFjIJFl2UwYglde2jchW2Hwm4GJFLDiSXWdTrJQBIN9Fcyp7n4DhxJEiWNAJMV1/BqWfW/kkg71UDcHJyTQ==}
+
+  zustand@5.0.14:
+    resolution: {integrity: sha512-/8tAspM5LMPr28b3fwLYrtdj77ECpfZviaP75CMTnwO8ISyaE4GDIG/9rDDYq/cH9D2Xw2A2RXglLInmVBQB/g==}
+    engines: {node: '>=12.20.0'}
+    peerDependencies:
+      '@types/react': '>=18.0.0'
+      immer: '>=9.0.6'
+      react: '>=18.0.0'
+      use-sync-external-store: '>=1.2.0'
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      immer:
+        optional: true
+      react:
+        optional: true
+      use-sync-external-store:
+        optional: true
 
 snapshots:
 
@@ -1942,6 +1969,8 @@ snapshots:
 
   ignore@7.0.6: {}
 
+  immer@11.1.16: {}
+
   imurmurhash@0.1.4: {}
 
   is-extglob@2.1.1: {}
@@ -2215,3 +2244,9 @@ snapshots:
       zod: 4.4.3
 
   zod@4.4.3: {}
+
+  zustand@5.0.14(@types/react@19.2.17)(immer@11.1.16)(react@19.2.7):
+    optionalDependencies:
+      '@types/react': 19.2.17
+      immer: 11.1.16
+      react: 19.2.7
