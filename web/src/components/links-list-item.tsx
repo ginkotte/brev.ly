@@ -12,29 +12,31 @@ export function LinksListItem({urlId, url}: LinksListItemProps) {
 
   return (
     <div className="flex items-center gap-6 py-4">
-      {/* Informações */}
       <div className="flex-1 min-w-0">
-        <p className="text-md font-semibold text-blue-base">
+        <a
+          href={`http://localhost:3333/url?id=${urlId}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-md font-semibold text-blue-base"
+        >
           brev.ly/{url.alias}
-        </p>
+        </a>
 
         <p className="truncate text-sm text-gray-500">
           {url.originalUrl}
         </p>
       </div>
 
-      {/* Acessos */}
       <span className="w-24 text-right text-sm text-gray-500">
         {url.totalAccess} acessos
       </span>
 
-      {/* Botões */}
       <div className="flex gap-2">
         <Button
           variant="secondary"
           size="icon"
           className="h-8 w-8 rounded-sm"
-          onClick={() => navigator.clipboard.writeText(`http://localhost:3333/${url.alias}`)}
+          onClick={() => navigator.clipboard.writeText(`http://localhost:3333/url?id=${urlId}`)}
         >
           <CopyIcon className="size-4" />
         </Button>
