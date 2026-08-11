@@ -15,6 +15,13 @@
       "when": 1782941460064,
       "tag": "0001_lazy_sleeper",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1786410377871,
+      "tag": "0002_salty_jigsaw",
+      "breakpoints": true
     }
   ]
 }

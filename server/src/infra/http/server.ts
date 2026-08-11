@@ -25,10 +25,15 @@ server.setErrorHandler((error, _request, reply) => {
 		});
 	}
 
-	return reply.status(500).send({ message: "Internal server error." });
+	return reply.status(500).send({
+		message: "Internal server error.",
+	});
 });
 
-server.register(fastifyCors, { origin: "*" });
+server.register(fastifyCors, {
+	origin: "*",
+	methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+});
 
 // Routes
 server.register(createShortUrlRoute);
@@ -37,6 +42,9 @@ server.register(redirectToOriginalUrlRoute);
 server.register(getUrlsRoute);
 server.register(exportUrlsRoute);
 
-server.listen({ port: env.PORT, host: "0.0.0.0" }).then(() => {
+server.listen({
+	port: env.PORT,
+	host: "0.0.0.0",
+}).then(() => {
 	console.log("HTTP server running!");
 });

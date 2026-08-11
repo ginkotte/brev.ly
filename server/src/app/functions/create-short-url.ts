@@ -1,4 +1,4 @@
-import { eq } from "drizzle-orm";
+import { and, eq, isNull } from "drizzle-orm";
 import z from "zod";
 import { env } from "../../env.ts";
 import { db } from "../../infra/db/index.ts";
@@ -22,7 +22,12 @@ export async function createShortUrl(
 			id: schema.urls.id,
 		})
 		.from(schema.urls)
-		.where(eq(schema.urls.shortUrl, alias));
+		.where(
+			and(
+				eq(schema.urls.shortUrl, alias),
+				isNull(schema.urls.deletedAt),
+			),
+		);
 
 	if (checkDuplicate.length) {
 		return makeLeft({ message: "URL encurtada já existe" });
@@ -34,8 +39,6 @@ export async function createShortUrl(
 	}).returning({
 		id: schema.urls.id,
 	})
-
-	console.log(result)
 
 	return makeRight({ url: `http://localhost:${env.PORT}/${alias}`, id: result.id });
 }

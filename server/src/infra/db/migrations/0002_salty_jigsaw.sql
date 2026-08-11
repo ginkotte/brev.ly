@@ -1,0 +1,1 @@
+ALTER TABLE "urls" DROP CONSTRAINT "urls_short_url_unique";

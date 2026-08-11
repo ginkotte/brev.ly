@@ -8,7 +8,7 @@ export const urls = pgTable(
 			.primaryKey()
 			.$defaultFn(() => uuidv7()),
 		originalUrl: text("original_url").notNull(),
-		shortUrl: text("short_url").notNull().unique(),
+		shortUrl: text("short_url").notNull(),
 		totalAccess: integer("total_access").default(0),
 		createdAt: timestamp("created_at").notNull().defaultNow(),
 		deletedAt: timestamp("deleted_at"),
