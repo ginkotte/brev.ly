@@ -14,7 +14,7 @@ type ShortUrlInput = z.input<typeof shortUrlInput>;
 
 export async function createShortUrl(
 	input: ShortUrlInput,
-): Promise<Either<{ message: string }, { url: string }>> {
+): Promise<Either<{ message: string }, { url: string, id: string }>> {
 	const { alias, originalUrl } = shortUrlInput.parse(input);
 
 	const checkDuplicate = await db
@@ -28,10 +28,14 @@ export async function createShortUrl(
 		return makeLeft({ message: "URL encurtada já existe" });
 	}
 
-	await db.insert(schema.urls).values({
+	const [result] = await db.insert(schema.urls).values({
 		shortUrl: alias,
 		originalUrl: originalUrl,
-	});
+	}).returning({
+		id: schema.urls.id,
+	})
 
-	return makeRight({ url: `http://localhost:${env.PORT}/${alias}` });
+	console.log(result)
+
+	return makeRight({ url: `http://localhost:${env.PORT}/${alias}`, id: result.id });
 }
