@@ -2,52 +2,63 @@ import { enableMapSet } from "immer"
 import { create } from "zustand"
 import { immer } from "zustand/middleware/immer"
 import { createShortUrl } from "../http/create-short-url"
+import { deleteShortUrl } from "../http/delete-short-url"
 
 export type Url = {
-  originalUrl: string,
-  alias: string,
+  originalUrl: string
+  alias: string
   totalAccess: number
 }
 
 type UrlState = {
   urls: Map<string, Url>
-  createUrl: (originalUrl: string, alias: string) => void
+  createUrl: (originalUrl: string, alias: string) => Promise<void>
+  deleteUrl: (urlId: string) => Promise<void>
 }
 
 enableMapSet()
 
-export const useUrls = create<UrlState, [['zustand/immer', never]]>(immer((set, get) => {
-  async function processUrl(urlId: string) {
-    const url = get().urls.get(urlId)
+export const useUrls = create<UrlState>()(
+  immer((set) => {
+    async function createUrl(originalUrl: string, alias: string) {
+      if (!originalUrl.trim() || !alias.trim()) {
+        return
+      }
 
-    if (!url) {
-      return
+      try {
+        const url = await createShortUrl({
+          originalUrl,
+          alias,
+        })
+
+        set((state) => {
+          state.urls.set(url.id, {
+            originalUrl: originalUrl,
+            alias: alias,
+            totalAccess: 0,
+          })
+        })
+      } catch (error) {
+        console.error("Erro ao criar URL:", error)
+      }
     }
 
-    await createShortUrl({
-      alias: url.alias,
-      originalUrl: url.originalUrl
-    })
-  }
+    async function deleteUrl(urlId: string) {
+      try {
+        await deleteShortUrl({ urlId })
 
-  function createUrl(originalUrl: string, alias: string) {
-    const urlId = crypto.randomUUID()
-
-    const url = {
-      originalUrl,
-      alias,
-      totalAccess: 0
+        set((state) => {
+          state.urls.delete(urlId)
+        })
+      } catch (error) {
+        console.error("Erro ao deletar URL:", error)
+      }
     }
 
-    set(state => {
-      state.urls.set(urlId, url)
-    })
-
-    processUrl(urlId)
-  }
-
-  return {
-    urls: new Map(),
-    createUrl
-  }
-}))
+    return {
+      urls: new Map(),
+      createUrl,
+      deleteUrl,
+    }
+  }),
+)

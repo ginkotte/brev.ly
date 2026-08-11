@@ -1,23 +1,31 @@
 import { CopyIcon, TrashIcon } from "@phosphor-icons/react";
 import { Button } from "./ui/button";
+import { useUrls, type Url } from "../store/urls";
 
-export function LinksListItem() {
+interface LinksListItemProps {
+  urlId: string,
+  url: Url
+}
+
+export function LinksListItem({urlId, url}: LinksListItemProps) {
+  const deleteUrl = useUrls((store) => store.deleteUrl)
+
   return (
     <div className="flex items-center gap-6 py-4">
       {/* Informações */}
       <div className="flex-1 min-w-0">
         <p className="text-md font-semibold text-blue-base">
-          brev.ly/Portfolio-Dev
+          brev.ly/{url.alias}
         </p>
 
         <p className="truncate text-sm text-gray-500">
-          devsite.portfolio.com.br/devname-123456
+          {url.originalUrl}
         </p>
       </div>
 
       {/* Acessos */}
       <span className="w-24 text-right text-sm text-gray-500">
-        30 acessos
+        {url.totalAccess} acessos
       </span>
 
       {/* Botões */}
@@ -26,6 +34,7 @@ export function LinksListItem() {
           variant="secondary"
           size="icon"
           className="h-8 w-8 rounded-sm"
+          onClick={() => navigator.clipboard.writeText(`http://localhost:3333/${url.alias}`)}
         >
           <CopyIcon className="size-4" />
         </Button>
@@ -34,6 +43,7 @@ export function LinksListItem() {
           variant="secondary"
           size="icon"
           className="h-8 w-8 rounded-sm"
+          onClick={() => deleteUrl(urlId)}
         >
           <TrashIcon className="size-4" />
         </Button>

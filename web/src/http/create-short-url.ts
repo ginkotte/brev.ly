@@ -5,13 +5,13 @@ interface CreateShortUrlParams {
   originalUrl: string
 }
 
-export async function createShortUrl({alias, originalUrl}: CreateShortUrlParams) {
+export async function createShortUrl({ alias, originalUrl }: CreateShortUrlParams) {
   const data = {
     alias,
     originalUrl
   }
 
-  const response = await axios.post<{url: string}>('http://localhost:3333/url', data)
+  const response = await axios.post<{ url: string, id: string }>('http://localhost:3333/url', data)
 
-  return {url: response.data.url}
+  return { url: response.data.url, id: response.data.id }
 }
