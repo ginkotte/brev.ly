@@ -16,13 +16,17 @@ export async function redirectUrl(
 ): Promise<Either<{ message: string }, { url: string }>> {
 	const { id } = redirectUrlInput.parse(input);
 
+	console.log(id)
+
 	const data = await db
 		.select({
-			shortUrl: schema.urls.shortUrl,
+			originalUrl: schema.urls.originalUrl,
 		})
 		.from(schema.urls)
 		.where(and(eq(schema.urls.id, id), isNull(schema.urls.deletedAt)))
 		.limit(1);
+
+	console.log(data)
 
 	if (data.length < 1) {
 		return makeLeft({ message: "URL não encontrada" });
@@ -35,5 +39,5 @@ export async function redirectUrl(
 		})
 		.where(eq(schema.urls.id, input.id));
 
-	return makeRight({ url: `http://localhost:${env.PORT}/${data[0].shortUrl}` });
+	return makeRight({ url: data[0].originalUrl });
 }
