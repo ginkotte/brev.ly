@@ -16,7 +16,7 @@ export const redirectToOriginalUrlRoute: FastifyPluginAsyncZod = async (
 					id: z.uuidv7(),
 				}),
 				response: {
-					302: z.void(),
+					200: z.object({ url: z.string() }),
 					404: z.object({ error: z.string() }),
 				},
 			},
@@ -29,7 +29,7 @@ export const redirectToOriginalUrlRoute: FastifyPluginAsyncZod = async (
 			});
 
 			if (isRight(result)) {
-				return reply.redirect(result.right.url);
+				return reply.status(200).send({ url: result.right.url })
 			}
 
 			const error = unwrapEither(result);
