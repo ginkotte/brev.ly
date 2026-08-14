@@ -1,6 +1,7 @@
 import { CopyIcon, TrashIcon } from "@phosphor-icons/react";
 import { Button } from "./ui/button";
 import { useUrls, type Url } from "../store/urls";
+import { Link } from "react-router-dom";
 
 interface LinksListItemProps {
   urlId: string,
@@ -13,14 +14,12 @@ export function LinksListItem({urlId, url}: LinksListItemProps) {
   return (
     <div className="flex items-center gap-6 py-4">
       <div className="flex-1 min-w-0">
-        <a
-          href={`http://localhost:3333/url?id=${urlId}`}
-          target="_blank"
-          rel="noopener noreferrer"
+        <Link
+          to={`/${urlId}`}
           className="text-md font-semibold text-blue-base"
         >
           brev.ly/{url.alias}
-        </a>
+        </Link>
 
         <p className="truncate text-sm text-gray-500">
           {url.originalUrl}
